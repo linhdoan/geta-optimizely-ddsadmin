@@ -10,7 +10,8 @@
     <description>CRUD Admin module for EPiServer DDS (Dynamic Data Store)</description>
     <projectUrl>https://github.com/Geta/DdsAdmin</projectUrl>
     <tags>EPiServer DDS Dynamic Data Store CRUD</tags>
-    <copyright>Copyright © 2013 Geta AS</copyright>
+    <copyright>Copyright © 2015 Geta</copyright>
+    <iconUrl>http://cdn.geta.no/opensource/icons/geta-dds-icon.png</iconUrl>
     <dependencies>
       <dependency id="jQuery" version="[1.9, 2.0)" />
       <dependency id="jquery.datatables" version="[1.9.4]" />
