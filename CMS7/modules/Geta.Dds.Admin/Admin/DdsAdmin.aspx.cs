@@ -3,7 +3,6 @@ using System.Linq;
 using System.Web;
 using System.Web.UI.WebControls;
 using EPiServer.Data.Dynamic;
-using EPiServer.Security;
 using EPiServer.UI;
 using Geta.DdsAdmin.Dds;
 using Geta.DdsAdmin.Dds.Services;
@@ -13,7 +12,6 @@ namespace Geta.DdsAdmin.Admin
     public partial class DdsAdmin : SystemPageBase
     {
         private int[] HiddenColumns { get; set; }
-
         protected string CurrentStoreName { get; set; }
         protected string CustomHeading { get; set; }
         protected string CustomMessage { get; set; }
@@ -67,14 +65,14 @@ namespace Geta.DdsAdmin.Admin
                 return;
             }
             HiddenColumns =
-                hiddenColumns.Split(new[] {","}, StringSplitOptions.RemoveEmptyEntries).Select(item => Convert.ToInt32(item)).ToArray();
+                hiddenColumns.Split(new[] { "," }, StringSplitOptions.RemoveEmptyEntries).Select(item => Convert.ToInt32(item)).ToArray();
         }
 
         private void LoadAndDisplayData()
         {
             if (string.IsNullOrEmpty(CurrentStoreName))
             {
-                this.hdivNoStoreTypeSelected.Visible = true;
+                hdivNoStoreTypeSelected.Visible = true;
                 return;
             }
 
@@ -83,16 +81,25 @@ namespace Geta.DdsAdmin.Admin
 
             if (Store == null)
             {
-                this.hdivStoreTypeDoesntExist.Visible = true;
+                hdivStoreTypeDoesntExist.Visible = true;
                 return;
             }
 
-            this.hdivStoreTypeSelected.Visible = true;
+            hdivStoreTypeSelected.Visible = true;
 
-            this.repColumnsHeader.DataSource = Store.Columns;
-            this.repForm.DataSource = Store.Columns;
-            this.repColumnsHeader.DataBind();
-            this.repForm.DataBind();
+            repColumnsHeader.DataSource = Store.Columns;
+            repForm.DataSource = Store.Columns;
+            repColumnsHeader.DataBind();
+            repForm.DataBind();
+        }
+
+        protected void FlushStore(object sender, EventArgs e)
+        {
+            var storeName = Request.Form["CurrentStoreName"];
+            var storeService = new StoreService(new ExcludedStoresService());
+            storeService.Flush(storeName);
+
+            Response.Redirect(Request.RawUrl);
         }
     }
 }

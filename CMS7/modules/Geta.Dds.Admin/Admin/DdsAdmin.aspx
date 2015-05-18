@@ -55,6 +55,14 @@
             <h3><%= string.IsNullOrEmpty(CustomHeading)? string.Format("Selected Store Type: {0}", CurrentStoreName): CustomHeading %></h3>
             <%= CustomMessage %>
 
+            <form runat="server">
+                <span class="epi-cmsButton">
+                    <asp:Button runat="server" ID="Flush" Text="Delete All Data" OnClick="FlushStore" CssClass="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" OnClientClick="return confirm('Are you really want to delete all data from ths table??')"/>
+                </span>
+                <input type="hidden" name="CurrentStoreName" value="<%= CurrentStoreName  %>"/>
+            </form>
+            
+            <br />
             <table class="display" id="storeItems">
                 <thead>
                     <tr>

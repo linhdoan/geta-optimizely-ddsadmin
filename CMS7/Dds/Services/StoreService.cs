@@ -79,6 +79,21 @@ namespace Geta.DdsAdmin.Dds.Services
             }
         }
 
+        public bool Flush(string storeName)
+        {
+            try
+            {
+                var store = DynamicDataStoreFactory.Instance.GetStore(storeName);
+                store.DeleteAll();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Delete failed", ex);
+                return false;
+            }
+        }
+
         public IEnumerable<StoreMetadata> GetAllMetadata(bool filterEnabled)
         {
             IEnumerable<StoreMetadata> visibleStores;
