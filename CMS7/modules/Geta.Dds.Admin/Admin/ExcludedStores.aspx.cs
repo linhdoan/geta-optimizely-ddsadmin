@@ -13,13 +13,17 @@ namespace Geta.DdsAdmin.Admin
 
         public ExcludedStores()
         {
-            this.excludedStoresService = new ExcludedStoresService();
+            excludedStoresService = new ExcludedStoresService();
         }
 
         protected void AddClick(object sender, EventArgs e)
         {
-            this.excludedStoresService.Add(new ExcludedStore { Filter = this.item.Text.Trim(), Id = Identity.NewIdentity() });
-            this.item.Text = string.Empty;
+            if (!string.IsNullOrWhiteSpace(item.Text))
+            {
+                excludedStoresService.Add(new ExcludedStore { Filter = item.Text.Trim(), Id = Identity.NewIdentity() });
+            }
+
+            item.Text = string.Empty;
         }
 
         protected override void OnLoad(EventArgs e)
@@ -40,13 +44,13 @@ namespace Geta.DdsAdmin.Admin
 
         protected void RemoveClick(object sender, EventArgs e)
         {
-            this.excludedStoresService.Delete(this.list.SelectedValue);
+            excludedStoresService.Delete(list.SelectedValue);
         }
 
         private void LoadData()
         {
-            this.list.DataSource = this.excludedStoresService.GetAll();
-            this.list.DataBind();
+            list.DataSource = excludedStoresService.GetAll();
+            list.DataBind();
         }
     }
 }
