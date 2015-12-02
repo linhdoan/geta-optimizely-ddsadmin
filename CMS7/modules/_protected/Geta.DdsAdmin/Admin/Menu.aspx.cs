@@ -1,11 +1,12 @@
 ﻿using System;
-using EPiServer.UI;
+using EPiServer;
+using EPiServer.Shell.WebForms;
 using Geta.DdsAdmin.Dds;
 using Geta.DdsAdmin.Dds.Services;
 
 namespace Geta.DdsAdmin.Admin
 {
-    public partial class Menu : SystemPageBase
+    public partial class Menu : WebFormsBase
     {
         protected StoreMetadata Item
         {
@@ -15,11 +16,6 @@ namespace Geta.DdsAdmin.Admin
         protected override void OnLoad(EventArgs e)
         {
             base.OnLoad(e);
-
-            if (!SecurityHelper.CheckAccess())
-            {
-                AccessDenied();
-            }
 
             if (IsPostBack)
             {
@@ -32,7 +28,7 @@ namespace Geta.DdsAdmin.Admin
         protected override void OnPreInit(EventArgs e)
         {
             base.OnPreInit(e);
-            MasterPageFile = ResolveUrlFromUI("MasterPages/EPiServerUI.master");
+            MasterPageFile = UriSupport.ResolveUrlFromUIBySettings("MasterPages/EPiServerUI.master");
         }
 
         private void LoadData()
@@ -40,8 +36,8 @@ namespace Geta.DdsAdmin.Admin
             var storeService = new StoreService(new ExcludedStoresService());
             var stores = storeService.GetAllMetadata(true);
 
-            this.repStoreTypes.DataSource = stores;
-            this.repStoreTypes.DataBind();
+            repStoreTypes.DataSource = stores;
+            repStoreTypes.DataBind();
         }
     }
 }

@@ -1,13 +1,14 @@
 using System;
+using EPiServer;
 using EPiServer.Data;
-using EPiServer.UI;
+using EPiServer.Shell.WebForms;
 using Geta.DdsAdmin.Dds;
 using Geta.DdsAdmin.Dds.Interfaces;
 using Geta.DdsAdmin.Dds.Services;
 
 namespace Geta.DdsAdmin.Admin
 {
-    public partial class ExcludedStores : SystemPageBase
+    public partial class ExcludedStores : WebFormsBase
     {
         private readonly IExcludedStoresService excludedStoresService;
 
@@ -20,20 +21,20 @@ namespace Geta.DdsAdmin.Admin
         {
             if (!string.IsNullOrWhiteSpace(item.Text))
             {
-                excludedStoresService.Add(new ExcludedStore { Filter = item.Text.Trim(), Id = Identity.NewIdentity() });
+                excludedStoresService.Add(new ExcludedStore
+                {
+                    Filter = item.Text.Trim(),
+                    Id = Identity.NewIdentity()
+                });
             }
 
             item.Text = string.Empty;
         }
 
-        protected override void OnLoad(EventArgs e)
+        protected override void OnPreInit(EventArgs e)
         {
-            base.OnLoad(e);
-
-            if (!SecurityHelper.CheckAccess())
-            {
-                AccessDenied();
-            }
+            base.OnPreInit(e);
+            MasterPageFile = UriSupport.ResolveUrlFromUIBySettings("MasterPages/EPiServerUI.master");
         }
 
         protected override void OnPreRender(EventArgs e)

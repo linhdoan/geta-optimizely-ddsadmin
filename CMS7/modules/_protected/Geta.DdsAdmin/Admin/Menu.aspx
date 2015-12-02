@@ -6,7 +6,7 @@
 </asp:Content>
 
 <asp:Content ContentPlaceHolderID="FullRegion" runat="server">
-    <div class="epi-buttonDefault" style="margin-left: 20px; padding-top: 20px;">
+    <div class="epi-buttonDefault" style="margin-left: 20px;">
         <span class="epi-cmsButton" >
             <a name="pLink" class="epi-cmsButton-tools epi-cmsButton-Edit"
                style="background-image: url(/App_Themes/Default/Images/Tools/SpriteTools.png); background-repeat: no-repeat; padding-left: 20px; line-height: 20px;"
@@ -42,7 +42,8 @@
                 </li>
             </ul>
         </div>
-
+        
+        <%--TODO: fix fallback path to use Paths.ToClientReosurce() method--%>
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"> </script>
         <script type="text/javascript">
             if (typeof jQuery == 'undefined') {
