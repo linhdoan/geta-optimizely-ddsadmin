@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Web;
 using System.Web.Routing;
+using EPiServer.Shell;
 using EPiServer.Shell.Navigation;
 
 namespace Geta.DdsAdmin
@@ -9,7 +10,6 @@ namespace Geta.DdsAdmin
     [MenuProvider]
     public class MenuProvider : IMenuProvider
     {
-        public const string RootMenuUri = "/Modules/Geta.Dds.Admin";
         private const string GetaTopMenuIsSetKey = "GetaTopMenuIsSet";
         private const string ParentPath = MenuPaths.Global + "/geta";
 
@@ -24,16 +24,17 @@ namespace Geta.DdsAdmin
                 HttpContext.Current.Items[GetaTopMenuIsSetKey] = true;
             }
 
-            var adminItem = new UrlMenuItem("DDS Admin", ParentPath + "/dds_admin", RootMenuUri + "/Admin/Default.aspx")
+            var adminItem = new UrlMenuItem("DDS Admin", ParentPath + "/dds_admin", Paths.ToResource(typeof(MenuProvider), "Admin/Default.aspx"))
                                 {
                                     IsAvailable = CheckAccess
                                 };
+
             menuItems.Add(adminItem);
 
             return menuItems;
         }
 
-        protected bool CheckAccess(RequestContext requestContext)
+        private bool CheckAccess(RequestContext requestContext)
         {
             return SecurityHelper.CheckAccess();
         }
