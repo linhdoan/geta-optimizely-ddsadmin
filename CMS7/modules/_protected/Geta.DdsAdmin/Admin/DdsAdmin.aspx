@@ -54,8 +54,11 @@
 
     <form runat="server">
         <span class="epi-cmsButton">
-                    <asp:Button runat="server" ID="Flush" Text="Delete All Data" OnClick="FlushStore" CssClass="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" OnClientClick="return confirm('Are you really want to delete all data from ths table??')"/>
-                </span>
+            <asp:Button runat="server" ID="Flush" Text="Delete All Data" OnClick="FlushStore" CssClass="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" OnClientClick="return confirm('Are you really want to delete all data from ths table??')"/>
+        </span>
+        <span class="epi-cmsButton">
+            <asp:Button runat="server" ID="Export" Text="Export to Excel" OnClick="ExportStore" CssClass="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export"/>
+        </span>
         <input type="hidden" name="CurrentStoreName" value="<%= CurrentStoreName %>"/>
     </form>
 
