@@ -211,9 +211,6 @@
     <None Include="modules\_protected\Geta.DdsAdmin\Temp.Master" />
     <Content Include="modules\_protected\Geta.DdsAdmin\Web.config" />
     <Content Include="modules\_protected\Geta.DdsAdmin\Geta.DdsAdmin.zip" />
-    <None Include="YUICompress.msbuild">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dds\Modules\ExcludedStoresModule.cs" />
@@ -279,9 +276,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityHelper.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scripts\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="modules\_protected\Geta.DdsAdmin\Admin\DdsAdmin.aspx" />
     <None Include="modules\_protected\Geta.DdsAdmin\Admin\Default.aspx" />
@@ -505,7 +500,6 @@
     <None Include="Geta.DdsAdmin.nuspec">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Settings.StyleCop" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
