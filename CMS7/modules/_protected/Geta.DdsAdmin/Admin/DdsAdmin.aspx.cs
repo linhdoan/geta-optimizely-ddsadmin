@@ -143,9 +143,9 @@ namespace Geta.DdsAdmin.Admin
             var storeName = Request.Form["CurrentStoreName"];
 
             Response.Clear();
-            Response.ContentType = "application/vnd.ms-excel";
+            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
             Response.ContentEncoding = Encoding.Unicode;
-            Response.AddHeader("content-disposition", $"fileattachment;filename={storeName}.xls");
+            Response.AddHeader("content-disposition", $"fileattachment;filename={storeName}.xlsx");
             Response.BinaryWrite(new[]
             {
                 byte.MaxValue, (byte) 254
