@@ -2,10 +2,9 @@ using System;
 using System.Data;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
+using ClosedXML.Excel;
 using EPiServer.Data.Dynamic;
 using EPiServer.Shell;
 using EPiServer.UI;
@@ -16,8 +15,8 @@ namespace Geta.DdsAdmin.Admin
 {
     public partial class DdsAdmin : SystemPageBase
     {
-        private readonly StoreService _storeService;
         private readonly CrudService _crudService;
+        private readonly StoreService _storeService;
 
         public DdsAdmin()
         {
@@ -141,32 +140,22 @@ namespace Geta.DdsAdmin.Admin
         protected void ExportStore(object sender, EventArgs e)
         {
             var storeName = Request.Form["CurrentStoreName"];
+            var ddsDataSet = GetDdsStoreAsDataSet(storeName);
 
-            Response.Clear();
-            Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
-            Response.ContentEncoding = Encoding.Unicode;
-            Response.AddHeader("content-disposition", $"fileattachment;filename={storeName}.xlsx");
-            Response.BinaryWrite(new[]
+            using (var wb = new XLWorkbook())
             {
-                byte.MaxValue, (byte) 254
-            });
-            DataSet ddsDataSet = GetDdsStoreAsDataSet(storeName);
+                wb.Worksheets.Add(ddsDataSet.Tables[0], "Sheet1");
 
-            using (var stringWriter = new StringWriter())
-            {
-                using (var writer = new HtmlTextWriter(stringWriter))
+                Response.Clear();
+                Response.Buffer = true;
+                Response.Charset = "";
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                Response.AddHeader("content-disposition", $"attachment;filename={storeName}.xlsx");
+                using (var MyMemoryStream = new MemoryStream())
                 {
-                    var dataGrid = new DataGrid
-                    {
-                        DataSource = ddsDataSet.Tables[0],
-                        GridLines = GridLines.Both
-                    };
-
-                    dataGrid.HeaderStyle.Font.Bold = true;
-                    dataGrid.AllowPaging = false;
-                    dataGrid.DataBind();
-                    dataGrid.RenderControl(writer);
-                    Response.Write(stringWriter.ToString());
+                    wb.SaveAs(MyMemoryStream);
+                    MyMemoryStream.WriteTo(Response.OutputStream);
+                    Response.Flush();
                     Response.End();
                 }
             }
@@ -180,7 +169,7 @@ namespace Geta.DdsAdmin.Admin
 
             foreach (var column in columns.Columns)
             {
-                dataTable.Columns.Add(column.PropertyName, typeof(string));
+                dataTable.Columns.Add(column.PropertyName, typeof (string));
             }
 
             var allRecords = _crudService.Read(storeName, 0, int.MaxValue, null, 0, null);
@@ -200,7 +189,6 @@ namespace Geta.DdsAdmin.Admin
                 {
                     var column = columMap[i];
                     row[column.PropertyName] = record[i + 1];
-
                 }
 
                 dataTable.Rows.Add(row);
