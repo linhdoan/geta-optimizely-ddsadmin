@@ -1,0 +1,4 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="FrameworkTemp.master.cs" Inherits="Geta.DdsAdmin.FrameworkTemp" %>
+
+<asp:ContentPlaceHolder ID="head" runat="server" />
+<asp:ContentPlaceHolder ID="FullRegion" runat="server" />
