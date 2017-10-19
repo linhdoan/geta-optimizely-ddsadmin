@@ -1,8 +1,0 @@
-﻿<%@ Master Language="C#" AutoEventWireup="False" CodeBehind="Temp.master.cs" Inherits="Geta.DdsAdmin.Temp" %>
-
-<asp:ContentPlaceHolder runat="server" id="HeaderContentRegion" /> 
-<asp:ContentPlaceHolder ID="FormRegion" runat="server">
-</asp:ContentPlaceHolder>
-<asp:ContentPlaceHolder ID="FullRegion" runat="server">
-    <asp:ContentPlaceHolder ID="MainRegion" runat="server"/>
-</asp:ContentPlaceHolder>
