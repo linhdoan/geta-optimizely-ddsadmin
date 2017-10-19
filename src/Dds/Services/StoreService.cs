@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Globalization;
 using System.Linq;
 using EPiServer.Data;
 using EPiServer.Data.Dynamic;
@@ -80,6 +79,21 @@ namespace Geta.DdsAdmin.Dds.Services
             }
         }
 
+        public bool Flush(string storeName)
+        {
+            try
+            {
+                var store = DynamicDataStoreFactory.Instance.GetStore(storeName);
+                store.DeleteAll();
+                return true;
+            }
+            catch (Exception ex)
+            {
+                logger.Error("Delete failed", ex);
+                return false;
+            }
+        }
+
         public IEnumerable<StoreMetadata> GetAllMetadata(bool filterEnabled)
         {
             IEnumerable<StoreMetadata> visibleStores;
@@ -135,14 +149,6 @@ namespace Geta.DdsAdmin.Dds.Services
             }
 
             var typeConverter = TypeDescriptor.GetConverter(type);
-            if (typeConverter is DoubleConverter)
-            {
-                double value;
-                if (double.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out value))
-                {
-                    return value;
-                }
-            }
             return typeConverter.ConvertFromInvariantString(stringValue);
         }
 
