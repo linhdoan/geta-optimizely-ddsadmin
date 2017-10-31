@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.Linq;
 using EPiServer.Data;
 using EPiServer.Data.Dynamic;
@@ -147,8 +148,15 @@ namespace Geta.DdsAdmin.Dds.Services
             {
                 return stringValue;
             }
-
             var typeConverter = TypeDescriptor.GetConverter(type);
+            if (typeConverter is DoubleConverter)
+            {
+                double value;
+                if (double.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out value))
+                {
+                    return value;
+                }
+            }
             return typeConverter.ConvertFromInvariantString(stringValue);
         }
 
