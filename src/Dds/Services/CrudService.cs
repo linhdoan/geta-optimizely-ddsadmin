@@ -161,7 +161,7 @@ namespace Geta.DdsAdmin.Dds.Services
 
                 foreach (var column in storeMetadata.Columns)
                 {
-                    if (row[column.PropertyName] != null)
+                    if (row.Keys.Any(s => s == column.PropertyName) && row[column.PropertyName] != null)
                     {
                         var value = row[column.PropertyName].ToString();
                         item.Add(Truncate(value));
