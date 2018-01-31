@@ -152,7 +152,7 @@ namespace Geta.DdsAdmin.Dds.Services
             if (typeConverter is DoubleConverter)
             {
                 double value;
-                if (double.TryParse(stringValue, NumberStyles.Any, CultureInfo.InvariantCulture.NumberFormat, out value))
+                if (double.TryParse(stringValue, out value))
                 {
                     return value;
                 }
