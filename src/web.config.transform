@@ -1,0 +1,7 @@
+<configuration>
+    <episerver.shell>
+        <protectedModules>
+            <add name="Geta.DdsAdmin" />
+        </protectedModules>
+    </episerver.shell>
+</configuration>
