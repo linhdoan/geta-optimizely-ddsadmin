@@ -13,4 +13,7 @@
     <copyright>$copyright$</copyright>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
   </metadata>
+  <files>
+    <file src="web.config.transform" target="content" />
+  </files>
 </package>
