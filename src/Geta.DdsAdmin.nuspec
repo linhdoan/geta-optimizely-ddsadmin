@@ -1,19 +1,22 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>$id$</id>
+    <id>Geta.DdsAdmin</id>
     <version>$version$</version>
-    <title>$title$</title>
+    <title>Geta.DdsAdmin</title>
     <authors>Geta</authors>
     <owners>Geta</owners>
     <projectUrl>https://github.com/Geta/DdsAdmin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>$description$</description>
+    <description>Dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 11.</description>
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-dds-icon.png</iconUrl>
-    <copyright>$copyright$</copyright>
+    <copyright>Copyright Geta 2018</copyright>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
   </metadata>
   <files>
-    <file src="web.config.transform" target="content" />
+    <file src="bin\Geta.DdsAdmin.dll" target="lib\net461\" />
+    <file src="bin\Geta.DdsAdmin.zip" target="content\modules\_protected\Geta.DdsAdmin\" />
+    <file src="web.config.install.xdt" target="content" />
+    <file src="web.config.uninstall.xdt" target="content" />  
   </files>
 </package>
