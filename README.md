@@ -1,6 +1,6 @@
 What is DDSAdmin?
 ------------------------------
-DDSAdmin is dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 6.
+DDSAdmin is dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 11.
 
 Where can I get it?
 ------------------------------
