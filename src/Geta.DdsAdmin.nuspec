@@ -12,6 +12,7 @@
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-dds-icon.png</iconUrl>
     <copyright>Copyright Geta 2018</copyright>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
+    <repository type="git" url="URL" branch="BRANCH_NAME" commit="COMMIT" />
   </metadata>
   <files>
     <file src="bin\Geta.DdsAdmin.dll" target="lib\net461\" />
