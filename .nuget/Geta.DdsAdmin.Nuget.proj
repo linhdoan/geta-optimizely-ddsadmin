@@ -79,16 +79,7 @@
         InputPath="$(TmpOutDir)\content"
         OutputFileName="$(OutDir)\Geta.DdsAdmin.zip"
         OverwriteExistingFile="true" />
-
-      <!-- Create the package -->
-      <PropertyGroup>
-        <NugetCommand>
-          "$(NuGetExe)" pack "$(NuspecFile)" -Version "$(Version)" -Properties Configuration=$(Configuration)
-        </NugetCommand>
-
-      </PropertyGroup>
-      <Exec Command="$(NugetCommand)"/>
-
+    
       <!-- Cleanup -->
       <RemoveDir Directories="$(TmpOutDir)" />
       
