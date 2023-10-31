@@ -1,0 +1,47 @@
+﻿@using Geta.DdsAdmin
+@model IEnumerable<Geta.DdsAdmin.Dds.StoreMetadata>
+
+@{
+    Layout = "./_Layout.cshtml";
+}
+
+<div class="epi-buttonDefault" style="margin-left: 20px;">
+    <span>
+        <label for="txtListFilter">Filter: </label>
+        <input type="text" id="txtListFilter" />
+    </span>
+</div>
+<div class="epi-adminSidebar">
+    <div class="epi-localNavigation">
+        <ul>
+            <li class="epi-navigation-standard epi-navigation-selected">
+                <ul id="storeList">
+                    @foreach (var store in Model)
+                    {
+                        <li>
+                            <a href="@string.Format(@Url.Action("Store") + "DdsAdmin.aspx?{0}={1}&{2} =0",
+                                         Constants.StoreKey, 
+                                         store.Name,
+                                         Constants.HiddenColumnsKey)">
+                                @($"{store.Name} ({store.Rows}, {store.Columns.Count() + 1})")
+                            </a>
+                        </li>
+                    }
+                </ul>
+            </li>
+        </ul>
+    </div>
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"> </script>
+    <script type="text/javascript">
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='/Scripts/jquery-1.10.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+    <script src="../Scripts/listfilter.min.js" type="text/javascript"> </script>
+    <script type="text/javascript">
+        $(function() {
+            $('#txtListFilter').listFilter({ listName: '#storeList' });
+        });
+    </script>
+</div>

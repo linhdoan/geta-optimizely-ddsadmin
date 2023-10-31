@@ -1,23 +1,25 @@
 <?xml version="1.0"?>
 <package>
   <metadata>
-    <id>Geta.DdsAdmin</id>
-    <version>$version$</version>
+    <id>Geta.Optimizely.DdsAdmin</id>
+    <version>1.0.0</version>
     <title>Geta.DdsAdmin</title>
     <authors>Geta</authors>
     <owners>Geta</owners>
-    <projectUrl>https://github.com/Geta/DdsAdmin</projectUrl>
+    <projectUrl>https://github.com/linhdoan/geta-optimizely-ddsadmin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <description>Dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 11.</description>
+    <description>Dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 12.</description>
     <iconUrl>http://cdn.geta.no/opensource/icons/geta-dds-icon.png</iconUrl>
     <copyright>Copyright Geta 2018</copyright>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
-    <repository type="git" url="URL" branch="BRANCH_NAME" commit="COMMIT" />
+    <!--<repository type="git" url="https://github.com/linhdoan/geta-optimizely-ddsadmin" branch="master" commit="5d8266b" />-->
+    <contentFiles>
+      <files include="any/net6.0/modules/_protected/Geta.DdsAdmin/Geta.DdsAdmin.zip" buildAction="None" copyToOutput="true" />
+    </contentFiles>
   </metadata>
   <files>
-    <file src="bin\Geta.DdsAdmin.dll" target="lib\net461\" />
-    <file src="bin\Geta.DdsAdmin.zip" target="content\modules\_protected\Geta.DdsAdmin\" />
-    <file src="web.config.install.xdt" target="content" />
-    <file src="web.config.uninstall.xdt" target="content" />  
+    <file src="Geta.DdsAdmin.zip" target="contentFiles\any\net6.0\modules\_protected\Geta.DdsAdmin\Geta.DdsAdmin.zip" />
+    <file src="Geta.DdsAdmin.targets" target="build\net6.0\" />
+    <file src="bin\net6.0\*.dll" target="lib\net6.0\" />
   </files>
 </package>

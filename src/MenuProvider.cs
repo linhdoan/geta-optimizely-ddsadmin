@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Web;
-using System.Web.Routing;
 using EPiServer.Shell;
 using EPiServer.Shell.Navigation;
+using Geta.DdsAdmin;
+using Microsoft.AspNetCore.Http;
 
 namespace Geta.DdsAdmin
 {
@@ -13,18 +13,23 @@ namespace Geta.DdsAdmin
         private const string GetaTopMenuIsSetKey = "GetaTopMenuIsSet";
         private const string ParentPath = MenuPaths.Global + "/geta";
 
+        private static readonly HttpContextAccessor HttpContextAccessor = new HttpContextAccessor();
+
         public IEnumerable<MenuItem> GetMenuItems()
         {
             var menuItems = new List<MenuItem>();
 
-            if (!Convert.ToBoolean(HttpContext.Current.Items[GetaTopMenuIsSetKey]))
+            if (!Convert.ToBoolean(HttpContextAccessor.HttpContext?.Items[GetaTopMenuIsSetKey]))
             {
                 var mainMenu = new SectionMenuItem("Geta", ParentPath) { IsAvailable = CheckAccess };
                 menuItems.Add(mainMenu);
-                HttpContext.Current.Items[GetaTopMenuIsSetKey] = true;
+                if (HttpContextAccessor.HttpContext != null)
+                {
+                    HttpContextAccessor.HttpContext.Items[GetaTopMenuIsSetKey] = true;
+                }
             }
 
-            var adminItem = new UrlMenuItem("DDS Admin", ParentPath + "/dds_admin", Paths.ToResource(typeof(MenuProvider), "Admin/Default.aspx"))
+            var adminItem = new UrlMenuItem("DDS Admin", ParentPath + "/ddsadmin", Paths.ToResource(typeof(MenuProvider), "/DdsAdmin/Index"))
                                 {
                                     IsAvailable = CheckAccess
                                 };
@@ -34,7 +39,7 @@ namespace Geta.DdsAdmin
             return menuItems;
         }
 
-        private bool CheckAccess(RequestContext requestContext)
+        private bool CheckAccess(HttpContext context)
         {
             return SecurityHelper.CheckAccess();
         }

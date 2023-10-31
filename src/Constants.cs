@@ -1,4 +1,4 @@
-﻿namespace Geta.DdsAdmin.Admin
+﻿namespace Geta.DdsAdmin
 {
     public static class Constants
     {

@@ -1,4 +1,5 @@
-﻿using EPiServer.Security;
+﻿using EPiServer.Authorization;
+using EPiServer.Security;
 
 namespace Geta.DdsAdmin
 {
@@ -6,7 +7,8 @@ namespace Geta.DdsAdmin
     {
         public static bool CheckAccess()
         {
-            return PrincipalInfo.Current != null && PrincipalInfo.HasAdminAccess;
+            return PrincipalInfo.CurrentPrincipal != null && (PrincipalInfo.CurrentPrincipal.IsInRole(Roles.CmsAdmins)
+                || PrincipalInfo.CurrentPrincipal.IsInRole(Roles.WebAdmins) || PrincipalInfo.CurrentPrincipal.IsInRole(Roles.Administrators));
         }
     }
 }

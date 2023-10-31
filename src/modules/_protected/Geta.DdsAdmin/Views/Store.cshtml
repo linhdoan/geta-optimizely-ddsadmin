@@ -1,0 +1,160 @@
+﻿@using EPiServer.Shell
+@using Geta.DdsAdmin
+@model Geta.DdsAdmin.ViewModels.StoreViewModel
+
+@{
+    Layout = "./_Layout.cshtml";
+}
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"> </script>
+<script type="text/javascript">
+        if (typeof jQuery == 'undefined') {
+            document.write(unescape("%3Cscript src='/Scripts/jquery-1.10.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.ui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
+<script type="text/javascript">
+        if (typeof jQuery.ui == 'undefined') {
+            document.write(unescape("%3Cscript src='/Scripts/jquery-ui-1.10.2.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+<script src="//ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js" type="text/javascript"> </script>
+<script type="text/javascript">
+        if (typeof jQuery.validate == 'undefined') {
+            document.write(unescape("%3Cscript src='/EPiServer/Geta.DdsAdmin/scripts/jquery.validate.min.js' type='text/javascript'%3E%3C/script%3E"));
+        }
+    </script>
+<link type="text/css" rel="stylesheet" href="@Paths.ToClientResource(typeof (MenuProvider), "content/themes/DDSAdmin/custom/minified.css")" />
+<script src="@Paths.ToClientResource(typeof(MenuProvider), "scripts/datatables-1.9.4/media/js/jquery.dataTables.min.js")"></script>
+<script src="@Paths.ToClientResource(typeof (MenuProvider), "scripts/dataTables.jeditable.min.js")"></script>
+
+<div id="hdivNoStoreTypeSelected" style="display:none">
+    <h3>No Store Type selected</h3>
+</div>
+<div id="hdivStoreTypeDoesntExist" style="display:none">
+    <h3>Selected Store Type does not exist</h3>
+</div>
+
+<div id="hdivStoreTypeSelected" style="display:none">
+    <form id="formAddNewRow" action="#" title="Add new @Model.StoreName">
+        <input type="text" name="form_Id" id="form_Id" rel="0" readonly="readonly" style="display: none"/>
+        @foreach (var property in Model.StoreMetadata.Columns)
+        {
+            <label for="form_@property.PropertyName">
+                @property.PropertyName
+                <input type="text" name="form_@property.PropertyName" id="form_@property.PropertyName"/>
+            </label>
+        }
+    </form>
+
+    <h3>@(string.IsNullOrEmpty(Model.CustomHeading) ? $"Selected Store Type: {Model.StoreName}" : Model.CustomHeading)</h3>
+    @Model.CustomMessage
+
+    <form method="post" action="@Url.Action("FlushStore")">
+        <span class="epi-cmsButton">
+            <submit id="Flush" value="Delete All Data" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" onClick="return confirm('Are you really want to delete all data from ths table??')"/>
+        </span>
+        <input type="hidden" name="StoreName" value="@Model.StoreName"/>
+    </form>
+
+    <form method="get" action="@Url.Action("ExportStore")">
+        <span class="epi-cmsButton">
+            <submit id="Export" value="Export to Excel" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export"/>
+        </span>
+        <input type="hidden" name="CurrentStoreName" value="@Model.StoreName"/>
+    </form>
+
+    <br/>
+    <table class="display" id="storeItems">
+        <thead>
+        <tr>
+            <th>Id</th>
+            @foreach (var property in Model.StoreMetadata.Columns)
+            {
+                <th>@property.PropertyName</th>
+            }
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td colspan="2" class="dataTables_empty">Loading data from server</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <script type="text/javascript" charset="utf-8">
+            $(function () {
+                var storeParameter = "@Constants.StoreKey=@Model.StoreName";
+                var dataTable = $('#storeItems').dataTable({
+                    sDom: "Rlfrtip",
+                    bJQueryUI: true,
+                    bProcessing: true,
+                    bServerSide: true,
+                    sPaginationType: "full_numbers",
+                    sAjaxSource: "@Url.Action("Read")?" + storeParameter,
+                    fnInitComplete: function (oSettings, json) {
+                        initTooltip();
+                    }
+                }).makeEditable({
+                    sUpdateURL: "@Url.Action("Update")?" + storeParameter,
+                    sAddURL: "@Url.Action("Create")?" + storeParameter,
+                    sAddHttpMethod: "POST",
+                    sDeleteHttpMethod: "POST",
+                    sDeleteURL: "@Url.Action("Delete")?" + storeParameter,
+                    oAddNewRowButtonOptions: {
+                        label: "Add...",
+                        icons: { primary: 'ui-icon-plus' }
+                    },
+                    oDeleteRowButtonOptions: {
+                        label: "Remove",
+                        icons: { primary: 'ui-icon-trash' }
+                    },
+                    oAddNewRowFormOptions: {
+                        title: 'Add a new row to @Model.StoreName',
+                        modal: false,
+                        width: 450
+                    },
+                    sAddDeleteToolbarSelector: ".dataTables_length",
+                    sAddNewRowFormId: "formAddNewRow",
+                    aoColumns: [@DdsAdminScriptHelper.GetColumns(Model.StoreMetadata.Columns.ToList(), Model.HiddenColumns)]
+                });
+
+                @DdsAdminScriptHelper.GetInvisibleColumns(Model.HiddenColumns);
+
+                /* The following will fix the toolbar not being encapsulated when using the DataTables with ColReorderWithResize */
+                var toolbar = dataTable.parent().find('.fg-toolbar');
+                if (!toolbar.length) {
+                    var _toolbar = '<div class="fg-toolbar ui-toolbar ui-widget-header ui-corner-bl ui-corner-br ui-helper-clearfix" />';
+                    dataTable.prevAll('div').wrapAll(_toolbar).end().nextAll('div').wrapAll(_toolbar);
+                }
+
+                function initTooltip() {
+                    var tooltip = $('<div />').css({
+                        position: 'absolute',
+                        display: 'none',
+                        left: -9999,
+                        top: -9999,
+                        backgroundColor: '#fff',
+                        border: '1px solid #000',
+                        padding: 2,
+                        'white-space': 'nowrap'
+                    }).appendTo('body');
+
+                    dataTable.find('tbody tr[id]').each(function () {
+                        var row = $(this);
+                        row.hover(function () {
+                            tooltip.text(row.attr('id')).show();
+                            row.mousemove(function (e) {
+                                tooltip.css({
+                                    left: e.pageX + 16,
+                                    top: e.pageY + 16
+                                });
+                            });
+                        }, function () {
+                            tooltip.hide();
+                        });
+                    });
+                }
+            });
+        </script>
+</div>

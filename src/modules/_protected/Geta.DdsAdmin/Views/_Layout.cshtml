@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dds Admin</title>
+</head>
+<body>
+    <div class="epi-buttonDefault" style="margin-left: 20px;">
+        <span class="epi-cmsButton">
+            <a class="epi-cmsButton-tools epi-cmsButton-Edit"
+               style="background-image: url(/App_Themes/Default/Images/Tools/SpriteTools.png); background-repeat: no-repeat; padding-left: 20px; line-height: 20px;"
+               href="@Url.Action("ExcludedStores")">
+                Exclude Stores
+            </a>
+            <span class="epi-cmsButton">
+                <a class="epi-cmsButton-tools epi-cmsButton-Edit"
+                   style="background-image: url(/App_Themes/Default/Images/Tools/SpriteTools.png); background-repeat: no-repeat; padding-left: 20px; line-height: 20px;"
+                   href="@Url.Action("Index")">
+                    Store List
+                </a>
+            </span>
+        </span>
+    </div>
+<div>
+    @RenderBody()
+</div>
+</body>
+</html>

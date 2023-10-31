@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using EPiServer.Data.Dynamic;
 
-namespace Geta.DdsAdmin.Admin
+namespace Geta.DdsAdmin
 {
     public static class DdsAdminScriptHelper
     {

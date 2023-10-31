@@ -1,0 +1,36 @@
+﻿@model IEnumerable<Geta.DdsAdmin.Dds.ExcludedStore>
+
+@{
+    Layout = "./_Layout.cshtml";
+}
+
+<div style="margin-left: 20px; margin-top: 20px">
+    <h3>Excluded Stores List</h3>
+    <p>
+        Add store name(namespace) part to be excluded in left menu(Filtering uses Contains).
+    </p>
+    <p>
+        <form method="post" action="@Url.Action("AddFilter")">
+            <label for="item">Add filter:</label>
+            <input type="text" id="item" name="filter"/>
+            <span class="epi-cmsButton">
+                <input type="submit" id="add" value="Add" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Add"/>
+            </span>
+        </form>
+    </p>
+    <p>Your filters:</p>
+    <p>
+        <form method="post" action="@Url.Action("DeleteFilter")">
+            <select id="filterList" name="selected" style="width:400px" size="@Model.Count()">
+                @foreach (var store in Model)
+                {
+                    <option value="@store.Id">@store.Filter</option>
+                }
+            </select>
+            <br/>
+            <span class="epi-cmsButton">
+                <input type="submit" id="remove" value="Remove selected filter" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete"/>
+            </span>
+        </form>
+    </p>
+</div>
