@@ -3,7 +3,7 @@
   <metadata>
     <id>Geta.Optimizely.DdsAdmin</id>
     <version>1.0.0</version>
-    <title>Geta.DdsAdmin</title>
+    <title>Geta.Optimizely.DdsAdmin</title>
     <authors>Geta</authors>
     <owners>Geta</owners>
     <projectUrl>https://github.com/linhdoan/geta-optimizely-ddsadmin</projectUrl>
@@ -14,12 +14,13 @@
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
     <!--<repository type="git" url="https://github.com/linhdoan/geta-optimizely-ddsadmin" branch="master" commit="5d8266b" />-->
     <contentFiles>
-      <files include="any/net6.0/modules/_protected/Geta.DdsAdmin/Geta.DdsAdmin.zip" buildAction="None" copyToOutput="true" />
+      <files include="any/any/modules/_protected/Geta.DdsAdmin/Geta.DdsAdmin.zip" buildAction="None" copyToOutput="true" />
     </contentFiles>
   </metadata>
   <files>
-    <file src="Geta.DdsAdmin.zip" target="contentFiles\any\net6.0\modules\_protected\Geta.DdsAdmin\Geta.DdsAdmin.zip" />
-    <file src="Geta.DdsAdmin.targets" target="build\net6.0\" />
+    <file src="Geta.DdsAdmin.zip" target="contentFiles\any\any\modules\_protected\Geta.DdsAdmin\Geta.DdsAdmin.zip" />
+    <file src="Geta.Optimizely.DdsAdmin.targets" target="build\net6.0\" />
     <file src="bin\net6.0\*.dll" target="lib\net6.0\" />
+    <file src="readme.txt" target="" />
   </files>
 </package>

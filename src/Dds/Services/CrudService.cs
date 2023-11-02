@@ -2,9 +2,9 @@
 using System.Linq;
 using EPiServer.Data;
 using EPiServer.Data.Dynamic;
+using EPiServer.Logging;
 using Geta.DdsAdmin.Dds.Interfaces;
 using Geta.DdsAdmin.Dds.Responses;
-using log4net;
 
 namespace Geta.DdsAdmin.Dds.Services
 {
@@ -12,7 +12,7 @@ namespace Geta.DdsAdmin.Dds.Services
     {
         private const int MaxLength = 50000;
 
-        private static readonly ILog logger = LogManager.GetLogger(typeof(CrudService));
+        private static readonly ILogger logger = LogManager.GetLogger(typeof(CrudService));
 
         private readonly IStoreService storeService;
 
@@ -117,7 +117,7 @@ namespace Geta.DdsAdmin.Dds.Services
         public StringResponse Update(string storeName, int columnId, string value, string id, string columnName)
         {
             var response = new StringResponse { Success = false };
-            logger.DebugFormat("Update started");
+            logger.Debug("Update started");
 
             Identity identity;
             if (Identity.TryParse(id, out identity) && identity != null)

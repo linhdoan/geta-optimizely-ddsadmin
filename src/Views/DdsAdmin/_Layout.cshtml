@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using EPiServer.Shell.Navigation
+@using Microsoft.AspNetCore.Html
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -6,6 +9,17 @@
     <title>Dds Admin</title>
 </head>
 <body>
+@{
+        var platformNavigation = Html.CreatePlatformNavigationMenu() as HtmlString;
+        var platformNavigationContent = platformNavigation.Value.Replace("data-epi-product-id=\"\"", "data-epi-product-id=\"global_cms\"");
+        platformNavigation = new HtmlString(platformNavigationContent);
+}
+    @Html.AntiForgeryToken()
+    @platformNavigation
+<div @Html.ApplyPlatformNavigation()>
+    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
+            <h1>GETA DDS Admin</h1>
+    </header>
     <div class="epi-buttonDefault" style="margin-left: 20px;">
         <span class="epi-cmsButton">
             <a class="epi-cmsButton-tools epi-cmsButton-Edit"
@@ -22,7 +36,6 @@
             </span>
         </span>
     </div>
-<div>
     @RenderBody()
 </div>
 </body>

@@ -5,14 +5,14 @@ using System.Globalization;
 using System.Linq;
 using EPiServer.Data;
 using EPiServer.Data.Dynamic;
+using EPiServer.Logging;
 using Geta.DdsAdmin.Dds.Interfaces;
-using log4net;
 
 namespace Geta.DdsAdmin.Dds.Services
 {
     public class StoreService : IStoreService
     {
-        private static readonly ILog logger = LogManager.GetLogger(typeof (StoreService));
+        private static readonly ILogger logger = LogManager.GetLogger(typeof (StoreService));
         private readonly IExcludedStoresService excludedStoresService;
 
         public StoreService(IExcludedStoresService excludedStoresService)
@@ -53,7 +53,7 @@ namespace Geta.DdsAdmin.Dds.Services
             }
             catch (NotImplementedException ex)
             {
-                logger.Error(ex);
+                logger.Error(ex.Message);
                 throw;
             }
             catch (Exception ex)

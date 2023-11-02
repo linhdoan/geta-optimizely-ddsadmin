@@ -11,7 +11,7 @@ namespace Geta.DdsAdmin
             IEnumerable<string> viewLocations)
         {
             //{2} is area, {1} is controller,{0} is the action
-            var locations = new[] { "/Geta.DdsAdmin/Views/{0}.cshtml" };
+            var locations = new[] { "/Views/{1}/{0}.cshtml" };
             return locations.Union(viewLocations);
         }
 
