@@ -53,14 +53,14 @@
 
     <form method="post" action="@Url.Action("FlushStore")">
         <span class="epi-cmsButton">
-            <submit id="Flush" value="Delete All Data" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" onClick="return confirm('Are you really want to delete all data from ths table??')"/>
+            <input type="submit" id="Flush" value="Delete All Data" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Delete" onClick="return confirm('Are you really want to delete all data from ths table??')"/>
         </span>
         <input type="hidden" name="StoreName" value="@Model.StoreName"/>
     </form>
 
     <form method="get" action="@Url.Action("ExportStore")">
         <span class="epi-cmsButton">
-            <submit id="Export" value="Export to Excel" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export"/>
+            <input type="submit" id="Export" value="Export to Excel" class="epi-cmsButton-text epi-cmsButton-tools epi-cmsButton-Export"/>
         </span>
         <input type="hidden" name="StoreName" value="@Model.StoreName"/>
     </form>

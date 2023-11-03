@@ -60,7 +60,7 @@ namespace Geta.DdsAdmin.Controllers
         public IActionResult FlushStore(string storeName)
         {
             _storeService.Flush(storeName);
-            return RedirectToAction("Store", new {store = storeName});
+            return RedirectToAction("Store", new {store = storeName, hideColumns = 0});
         }
 
         [Route("/DdsAdmin/[action]")]
@@ -71,8 +71,9 @@ namespace Geta.DdsAdmin.Controllers
             using var wb = new XLWorkbook();
             wb.Worksheets.Add(ddsDataSet.Tables[0], "Sheet1");
 
-            using var memoryStream = new MemoryStream();
+            var memoryStream = new MemoryStream();
             wb.SaveAs(memoryStream);
+            memoryStream.Seek(0, SeekOrigin.Begin);
             return File(memoryStream, "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                 $"{storeName}.xlsx");
         }

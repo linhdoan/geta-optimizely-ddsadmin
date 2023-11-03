@@ -1,5 +1,9 @@
 ﻿Geta.Optimizely.DdsAdmin
 
+INSTALLATION
+============
+Add this line in ConfigureServices() method of Startup file:
+services.AddOptimizelyDdsAdmin();
 
 USAGE
 ============

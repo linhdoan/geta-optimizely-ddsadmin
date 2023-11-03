@@ -2,7 +2,7 @@
 <package>
   <metadata>
     <id>Geta.Optimizely.DdsAdmin</id>
-    <version>1.0.0</version>
+    <version>1.0.1</version>
     <title>Geta.Optimizely.DdsAdmin</title>
     <authors>Geta</authors>
     <owners>Geta</owners>
@@ -13,6 +13,7 @@
     <copyright>Copyright Geta 2018</copyright>
     <license type="file">LICENSE.txt</license>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
+    <releaseNotes>Added Excel export and Flush data store features.</releaseNotes>
     <dependencies>
       <group targetFramework=".NETCoreApp,Version=v6.0">
         <dependency id="EPiServer.CMS.UI.Core" version="[12.4.0,13.0.0)" />
