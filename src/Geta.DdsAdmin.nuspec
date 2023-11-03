@@ -9,9 +9,15 @@
     <projectUrl>https://github.com/linhdoan/geta-optimizely-ddsadmin</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>Dynamic data store (DDS) create, read, update, delete (CRUD) editor for EPiServer CMS 12.</description>
-    <iconUrl>http://cdn.geta.no/opensource/icons/geta-dds-icon.png</iconUrl>
+    <icon>geta-dds-icon.png</icon>
     <copyright>Copyright Geta 2018</copyright>
+    <license type="file">LICENSE.txt</license>
     <tags>EPiServer DDS Dynamic Data Store CRUD CMS DDSAmin</tags>
+    <dependencies>
+      <group targetFramework=".NETCoreApp,Version=v6.0">
+        <dependency id="EPiServer.CMS.UI.Core" version="[12.4.0,13.0.0)" />
+      </group>
+    </dependencies>
     <!--<repository type="git" url="https://github.com/linhdoan/geta-optimizely-ddsadmin" branch="master" commit="5d8266b" />-->
     <contentFiles>
       <files include="any/any/modules/_protected/Geta.DdsAdmin/Geta.DdsAdmin.zip" buildAction="None" copyToOutput="true" />
@@ -21,6 +27,8 @@
     <file src="Geta.DdsAdmin.zip" target="contentFiles\any\any\modules\_protected\Geta.DdsAdmin\Geta.DdsAdmin.zip" />
     <file src="Geta.Optimizely.DdsAdmin.targets" target="build\net6.0\" />
     <file src="bin\net6.0\*.dll" target="lib\net6.0\" />
-    <file src="readme.txt" target="" />
+    <file src="README.md" target="docs\" />
+    <file src="LICENSE.txt" target="" />
+    <file src="geta-dds-icon.png" target="" />
   </files>
 </package>

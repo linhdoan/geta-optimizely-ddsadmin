@@ -3,4 +3,4 @@
 
 USAGE
 ============
-To access the add-on, go to Admin -> Dds Admin
+To access the add-on, go to CMS -> Dds Admin

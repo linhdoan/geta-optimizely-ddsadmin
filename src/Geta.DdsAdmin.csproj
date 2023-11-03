@@ -5,16 +5,17 @@
     <RestorePackages>true</RestorePackages>
     <RepositoryUrl>URL</RepositoryUrl>
     <IsPackable>true</IsPackable>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
   </PropertyGroup>
   <ItemGroup>
     <None Remove="Geta.DdsAdmin.zip" />
-    <None Remove="readme.txt" />
+    <None Include="README.MD" Pack="true" PackagePath="\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Geta.DdsAdmin.zip">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Content>
-    <Content Include="readme.txt" />
+    <Content Include="README.md" />
   </ItemGroup>
   <ItemGroup>
     <None Include="modules\_protected\Geta.DdsAdmin\module.config" />
