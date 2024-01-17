@@ -39,11 +39,12 @@
 <div id="hdivStoreTypeSelected">
     <form id="formAddNewRow" action="#" title="Add new @Model.StoreName">
         <input type="text" name="form_Id" id="form_Id" rel="0" readonly="readonly" style="display: none"/>
-        @foreach (var property in Model.StoreMetadata.Columns)
+        @for(int i = 0; i < Model.StoreMetadata.Columns.Count(); i++) 
         {
+            var property = Model.StoreMetadata.Columns.ElementAt(i);
             <label for="form_@property.PropertyName">
                 @property.PropertyName
-                <input type="text" name="form_@property.PropertyName" id="form_@property.PropertyName"/>
+                <input type="text" name="form_@property.PropertyName" id="form_@property.PropertyName" rel="@(i + 1)" />
             </label>
         }
     </form>

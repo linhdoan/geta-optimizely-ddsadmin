@@ -85,7 +85,7 @@ namespace Geta.DdsAdmin.Controllers
             var createResponse = _crudService.Create(store, values);
             if (createResponse.Success)
             {
-                return Ok(createResponse.Response);
+                return Content(createResponse.Response, "application/json; charset=utf-8");
             }
             else
             {
